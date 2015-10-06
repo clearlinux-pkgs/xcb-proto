@@ -4,7 +4,7 @@
 #
 Name     : xcb-proto
 Version  : 1.11
-Release  : 5
+Release  : 6
 URL      : http://xorg.freedesktop.org/releases/individual/xcb/xcb-proto-1.11.tar.gz
 Source0  : http://xorg.freedesktop.org/releases/individual/xcb/xcb-proto-1.11.tar.gz
 Summary  : X protocol descriptions for XCB
