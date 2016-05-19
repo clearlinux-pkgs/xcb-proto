@@ -1,4 +1,5 @@
 PKG_NAME := xcb-proto
-URL := http://xorg.freedesktop.org/releases/individual/xcb/xcb-proto-1.11.tar.gz
+URL := http://xorg.freedesktop.org/releases/individual/xcb/xcb-proto-1.12.tar.gz
+ARCHIVES :=
 
 include ../common/Makefile.common
