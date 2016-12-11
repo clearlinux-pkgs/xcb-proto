@@ -4,7 +4,7 @@
 #
 Name     : xcb-proto
 Version  : 1.12
-Release  : 11
+Release  : 12
 URL      : http://xorg.freedesktop.org/releases/individual/xcb/xcb-proto-1.12.tar.gz
 Source0  : http://xorg.freedesktop.org/releases/individual/xcb/xcb-proto-1.12.tar.gz
 Summary  : X protocol descriptions for XCB
@@ -52,10 +52,12 @@ python components for the xcb-proto package.
 %setup -q -n xcb-proto-1.12
 
 %build
+export LANG=C
 %configure --disable-static
 make V=1  %{?_smp_mflags}
 
 %check
+export LANG=C
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost
@@ -105,7 +107,7 @@ rm -rf %{buildroot}
 
 %files dev
 %defattr(-,root,root,-)
-/usr/lib64/pkgconfig/*.pc
+/usr/lib64/pkgconfig/xcb-proto.pc
 
 %files python
 %defattr(-,root,root,-)
