@@ -4,7 +4,7 @@
 #
 Name     : xcb-proto
 Version  : 1.12
-Release  : 12
+Release  : 13
 URL      : http://xorg.freedesktop.org/releases/individual/xcb/xcb-proto-1.12.tar.gz
 Source0  : http://xorg.freedesktop.org/releases/individual/xcb/xcb-proto-1.12.tar.gz
 Summary  : X protocol descriptions for XCB
@@ -12,6 +12,11 @@ Group    : Development/Tools
 License  : MIT
 Requires: xcb-proto-python
 Requires: xcb-proto-data
+BuildRequires : gcc-dev32
+BuildRequires : gcc-libgcc32
+BuildRequires : gcc-libstdc++32
+BuildRequires : glibc-dev32
+BuildRequires : glibc-libc32
 BuildRequires : libxml2-dev
 
 %description
@@ -40,6 +45,15 @@ Provides: xcb-proto-devel
 dev components for the xcb-proto package.
 
 
+%package dev32
+Summary: dev32 components for the xcb-proto package.
+Group: Default
+Requires: xcb-proto-data
+
+%description dev32
+dev32 components for the xcb-proto package.
+
+
 %package python
 Summary: python components for the xcb-proto package.
 Group: Default
@@ -50,12 +64,21 @@ python components for the xcb-proto package.
 
 %prep
 %setup -q -n xcb-proto-1.12
+pushd ..
+cp -a xcb-proto-1.12 build32
+popd
 
 %build
 export LANG=C
 %configure --disable-static
 make V=1  %{?_smp_mflags}
 
+pushd ../build32
+export CFLAGS="$CFLAGS -m32"
+export CXXFLAGS="$CXXFLAGS -m32"
+%configure --disable-static  --libdir=/usr/lib32
+make V=1  %{?_smp_mflags}
+popd
 %check
 export LANG=C
 export http_proxy=http://127.0.0.1:9/
@@ -65,6 +88,15 @@ make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
 rm -rf %{buildroot}
+pushd ../build32
+%make_install32
+if [ -d  %{buildroot}/usr/lib32/pkgconfig ]
+then
+pushd %{buildroot}/usr/lib32/pkgconfig
+for i in *.pc ; do mv $i 32$i ; done
+popd
+fi
+popd
 %make_install
 
 %files
@@ -108,6 +140,10 @@ rm -rf %{buildroot}
 %files dev
 %defattr(-,root,root,-)
 /usr/lib64/pkgconfig/xcb-proto.pc
+
+%files dev32
+%defattr(-,root,root,-)
+/usr/lib32/pkgconfig/32xcb-proto.pc
 
 %files python
 %defattr(-,root,root,-)
