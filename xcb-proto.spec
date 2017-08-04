@@ -4,7 +4,7 @@
 #
 Name     : xcb-proto
 Version  : 1.12
-Release  : 17
+Release  : 19
 URL      : http://xorg.freedesktop.org/releases/individual/xcb/xcb-proto-1.12.tar.gz
 Source0  : http://xorg.freedesktop.org/releases/individual/xcb/xcb-proto-1.12.tar.gz
 Summary  : X protocol descriptions for XCB
@@ -18,7 +18,8 @@ BuildRequires : gcc-libstdc++32
 BuildRequires : glibc-dev32
 BuildRequires : glibc-libc32
 BuildRequires : libxml2-dev
-BuildRequires : python
+BuildRequires : python-dev
+BuildRequires : python3
 
 %description
 About xcb-proto
@@ -75,7 +76,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1501817922
+export SOURCE_DATE_EPOCH=1501818372
 %configure --disable-static
 make V=1  %{?_smp_mflags}
 
@@ -95,7 +96,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1501817922
+export SOURCE_DATE_EPOCH=1501818372
 rm -rf %{buildroot}
 pushd ../build32/
 %make_install32
