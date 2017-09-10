@@ -4,13 +4,13 @@
 #
 Name     : xcb-proto
 Version  : 1.12
-Release  : 19
+Release  : 20
 URL      : http://xorg.freedesktop.org/releases/individual/xcb/xcb-proto-1.12.tar.gz
 Source0  : http://xorg.freedesktop.org/releases/individual/xcb/xcb-proto-1.12.tar.gz
 Summary  : X protocol descriptions for XCB
 Group    : Development/Tools
 License  : MIT
-Requires: xcb-proto-python
+Requires: xcb-proto-legacypython
 Requires: xcb-proto-data
 BuildRequires : gcc-dev32
 BuildRequires : gcc-libgcc32
@@ -57,12 +57,12 @@ Requires: xcb-proto-dev
 dev32 components for the xcb-proto package.
 
 
-%package python
-Summary: python components for the xcb-proto package.
+%package legacypython
+Summary: legacypython components for the xcb-proto package.
 Group: Default
 
-%description python
-python components for the xcb-proto package.
+%description legacypython
+legacypython components for the xcb-proto package.
 
 
 %prep
@@ -76,7 +76,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1501818372
+export SOURCE_DATE_EPOCH=1505074291
 %configure --disable-static
 make V=1  %{?_smp_mflags}
 
@@ -96,7 +96,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1501818372
+export SOURCE_DATE_EPOCH=1505074291
 rm -rf %{buildroot}
 pushd ../build32/
 %make_install32
@@ -156,6 +156,6 @@ popd
 /usr/lib32/pkgconfig/32xcb-proto.pc
 /usr/lib32/pkgconfig/xcb-proto.pc
 
-%files python
+%files legacypython
 %defattr(-,root,root,-)
 /usr/lib/python2*/*
