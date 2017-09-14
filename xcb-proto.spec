@@ -4,7 +4,7 @@
 #
 Name     : xcb-proto
 Version  : 1.12
-Release  : 20
+Release  : 21
 URL      : http://xorg.freedesktop.org/releases/individual/xcb/xcb-proto-1.12.tar.gz
 Source0  : http://xorg.freedesktop.org/releases/individual/xcb/xcb-proto-1.12.tar.gz
 Summary  : X protocol descriptions for XCB
@@ -76,7 +76,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1505074291
+export SOURCE_DATE_EPOCH=1505366821
 %configure --disable-static
 make V=1  %{?_smp_mflags}
 
@@ -96,7 +96,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1505074291
+export SOURCE_DATE_EPOCH=1505366821
 rm -rf %{buildroot}
 pushd ../build32/
 %make_install32
