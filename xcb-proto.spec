@@ -4,13 +4,14 @@
 #
 Name     : xcb-proto
 Version  : 1.13
-Release  : 28
+Release  : 29
 URL      : http://xorg.freedesktop.org/releases/individual/xcb/xcb-proto-1.13.tar.gz
 Source0  : http://xorg.freedesktop.org/releases/individual/xcb/xcb-proto-1.13.tar.gz
 Summary  : X protocol descriptions for XCB
 Group    : Development/Tools
 License  : MIT
 Requires: xcb-proto-python3
+Requires: xcb-proto-license
 Requires: xcb-proto-data
 Requires: xcb-proto-python
 BuildRequires : gcc-dev32
@@ -19,8 +20,6 @@ BuildRequires : gcc-libstdc++32
 BuildRequires : glibc-dev32
 BuildRequires : glibc-libc32
 BuildRequires : libxml2-dev
-
-BuildRequires : python3
 
 %description
 About xcb-proto
@@ -58,6 +57,14 @@ Requires: xcb-proto-dev
 dev32 components for the xcb-proto package.
 
 
+%package license
+Summary: license components for the xcb-proto package.
+Group: Default
+
+%description license
+license components for the xcb-proto package.
+
+
 %package python
 Summary: python components for the xcb-proto package.
 Group: Default
@@ -87,7 +94,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1522108993
+export SOURCE_DATE_EPOCH=1529093658
 %configure --disable-static
 make  %{?_smp_mflags}
 
@@ -107,8 +114,10 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1522108993
+export SOURCE_DATE_EPOCH=1529093658
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/doc/xcb-proto
+cp COPYING %{buildroot}/usr/share/doc/xcb-proto/COPYING
 pushd ../build32/
 %make_install32
 if [ -d  %{buildroot}/usr/lib32/pkgconfig ]
@@ -166,6 +175,10 @@ popd
 %defattr(-,root,root,-)
 /usr/lib32/pkgconfig/32xcb-proto.pc
 /usr/lib32/pkgconfig/xcb-proto.pc
+
+%files license
+%defattr(-,root,root,-)
+/usr/share/doc/xcb-proto/COPYING
 
 %files python
 %defattr(-,root,root,-)
