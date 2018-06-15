@@ -19,7 +19,7 @@ BuildRequires : gcc-libstdc++32
 BuildRequires : glibc-dev32
 BuildRequires : glibc-libc32
 BuildRequires : libxml2-dev
-BuildRequires : python-dev
+
 BuildRequires : python3
 
 %description
