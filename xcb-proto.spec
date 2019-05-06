@@ -4,16 +4,16 @@
 #
 Name     : xcb-proto
 Version  : 1.13
-Release  : 36
+Release  : 37
 URL      : http://xorg.freedesktop.org/releases/individual/xcb/xcb-proto-1.13.tar.gz
 Source0  : http://xorg.freedesktop.org/releases/individual/xcb/xcb-proto-1.13.tar.gz
-Summary  : X protocol descriptions for XCB
+Summary  : XML-XCB protocol descriptions
 Group    : Development/Tools
 License  : MIT
-Requires: xcb-proto-python3
-Requires: xcb-proto-license
-Requires: xcb-proto-data
-Requires: xcb-proto-python
+Requires: xcb-proto-data = %{version}-%{release}
+Requires: xcb-proto-license = %{version}-%{release}
+Requires: xcb-proto-python = %{version}-%{release}
+Requires: xcb-proto-python3 = %{version}-%{release}
 BuildRequires : gcc-dev32
 BuildRequires : gcc-libgcc32
 BuildRequires : gcc-libstdc++32
@@ -40,8 +40,9 @@ data components for the xcb-proto package.
 %package dev
 Summary: dev components for the xcb-proto package.
 Group: Development
-Requires: xcb-proto-data
-Provides: xcb-proto-devel
+Requires: xcb-proto-data = %{version}-%{release}
+Provides: xcb-proto-devel = %{version}-%{release}
+Requires: xcb-proto = %{version}-%{release}
 
 %description dev
 dev components for the xcb-proto package.
@@ -50,8 +51,8 @@ dev components for the xcb-proto package.
 %package dev32
 Summary: dev32 components for the xcb-proto package.
 Group: Default
-Requires: xcb-proto-data
-Requires: xcb-proto-dev
+Requires: xcb-proto-data = %{version}-%{release}
+Requires: xcb-proto-dev = %{version}-%{release}
 
 %description dev32
 dev32 components for the xcb-proto package.
@@ -68,7 +69,7 @@ license components for the xcb-proto package.
 %package python
 Summary: python components for the xcb-proto package.
 Group: Default
-Requires: xcb-proto-python3
+Requires: xcb-proto-python3 = %{version}-%{release}
 
 %description python
 python components for the xcb-proto package.
@@ -94,15 +95,23 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1529093658
+export SOURCE_DATE_EPOCH=1557102702
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 %configure --disable-static
 make  %{?_smp_mflags}
 
 pushd ../build32/
 export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
-export CFLAGS="$CFLAGS -m32"
-export CXXFLAGS="$CXXFLAGS -m32"
-export LDFLAGS="$LDFLAGS -m32"
+export ASFLAGS="${ASFLAGS}${ASFLAGS:+ }--32"
+export CFLAGS="${CFLAGS}${CFLAGS:+ }-m32"
+export CXXFLAGS="${CXXFLAGS}${CXXFLAGS:+ }-m32"
+export LDFLAGS="${LDFLAGS}${LDFLAGS:+ }-m32"
 %configure --disable-static    --libdir=/usr/lib32 --build=i686-generic-linux-gnu --host=i686-generic-linux-gnu --target=i686-clr-linux-gnu
 make  %{?_smp_mflags}
 popd
@@ -112,12 +121,14 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check || :
+cd ../build32;
+make VERBOSE=1 V=1 %{?_smp_mflags} check || : || :
 
 %install
-export SOURCE_DATE_EPOCH=1529093658
+export SOURCE_DATE_EPOCH=1557102702
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/usr/share/doc/xcb-proto
-cp COPYING %{buildroot}/usr/share/doc/xcb-proto/COPYING
+mkdir -p %{buildroot}/usr/share/package-licenses/xcb-proto
+cp COPYING %{buildroot}/usr/share/package-licenses/xcb-proto/COPYING
 pushd ../build32/
 %make_install32
 if [ -d  %{buildroot}/usr/lib32/pkgconfig ]
@@ -177,8 +188,8 @@ popd
 /usr/lib32/pkgconfig/xcb-proto.pc
 
 %files license
-%defattr(-,root,root,-)
-/usr/share/doc/xcb-proto/COPYING
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/xcb-proto/COPYING
 
 %files python
 %defattr(-,root,root,-)
