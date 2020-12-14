@@ -6,7 +6,7 @@
 #
 Name     : xcb-proto
 Version  : 1.13
-Release  : 44
+Release  : 45
 URL      : http://xorg.freedesktop.org/releases/individual/xcb/xcb-proto-1.13.tar.gz
 Source0  : http://xorg.freedesktop.org/releases/individual/xcb/xcb-proto-1.13.tar.gz
 Source1  : http://xorg.freedesktop.org/releases/individual/xcb/xcb-proto-1.13.tar.gz.sig
