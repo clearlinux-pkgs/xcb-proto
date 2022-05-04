@@ -1,5 +1,5 @@
 PKG_NAME := xcb-proto
-URL = https://www.x.org/releases/individual/proto/xcb-proto-1.14.1.tar.xz
+URL = https://www.x.org/releases/individual/proto/xcb-proto-1.15.tar.xz
 ARCHIVES = 
 
 include ../common/Makefile.common
