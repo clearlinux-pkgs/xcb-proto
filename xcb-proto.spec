@@ -6,7 +6,7 @@
 #
 Name     : xcb-proto
 Version  : 1.15.2
-Release  : 58
+Release  : 59
 URL      : https://www.x.org/releases/individual/proto/xcb-proto-1.15.2.tar.xz
 Source0  : https://www.x.org/releases/individual/proto/xcb-proto-1.15.2.tar.xz
 Source1  : https://www.x.org/releases/individual/proto/xcb-proto-1.15.2.tar.xz.sig
